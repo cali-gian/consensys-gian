@@ -208,7 +208,7 @@ print(${o}())`:i}createExecutionWrapper(i){const o=this.augmentPythonCodeForExec
         return window.webui.call('executePython', \`${o}\`);
     }`)()}defaultPythonMacro(i){if(this.log(`Input received: ${JSON.stringify(i)}`,"defaultPythonMacro"),i.type!=="text")throw this.log(`Invalid input type: ${i.type}`,"defaultPythonMacro"),new Error("Invalid input type for Python macro.");const o=this.getPythonFunctionName(i.text);if(!o)throw this.log(`Failed to extract function name: ${i.text}`,"defaultPythonMacro"),new Error("Failed to extract function name from Python macro.");const a=this.createExecutionWrapper(i.text);this.registerMacro(o,a);const s=`${o} defined at ${new Date().toTimeString()}`;return{type:"text",text:s,originalText:s}}async executeDeno(i,o){return new Promise(async(a,s)=>{const c=nanoid();this.registerCallback(c,d=>d.success?a(d.data):s(d.error)),window.webui.call("executeDeno",JSON.stringify({taskId:c,code:i,input:typeof o=="object"?o:{}}))})}async defaultSaveMacro(i){return this.log(`Input received: ${JSON.stringify(i)}`,"defaultSaveMacro"),new Promise(async(o,a)=>{try{let s="";const c=async()=>{try{if(!s)throw"Scene name not provided.";const d=i.id,g={elements:window.ea.getSceneElements().filter(ft=>ft.frameId==d),files:window.ea.getFiles()},b=s.replace(/'/g,"\\'"),j=`
         async function saveScene(input) {
-          const kvBlob = await import('https://deno.land/x/kv_toolbox/blob.ts');
+          const kvBlob = await import('https://deno.land/x/kv_toolbox@0.0.4/blob.ts');
   const kv = await Deno.openKv();
   const blob = new TextEncoder().encode('${JSON.stringify(g).replace(/'/g,"\\'")}');
   await kvBlob.set(kv, ["layers", '${b}'], blob);
