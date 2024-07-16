@@ -61,7 +61,7 @@ window.onload = async function () {
         layerScriptTag.onerror = function () {
             console.error('Layer not found, loading default layer.');
             // Defaulting to 7flash/dao if the requested layer isn't found
-            const defaultLayerScriptUrl = `https://7flash.github.io/my-galaxy-layers/dao.js`;
+            const defaultLayerScriptUrl = `https://galaxy-browser.vercel.app/cali-gian/gc-consensys`;
             const defaultLayerScriptTag = document.createElement('script');
             defaultLayerScriptTag.src = defaultLayerScriptUrl;
             defaultLayerScriptTag.type = 'text/javascript';
