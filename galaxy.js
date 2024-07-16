@@ -36,8 +36,8 @@ window.metaElements = []
 window.onload = async function () {
     try {
         const path = window.location.pathname;
-        let username = '7flash';
-        let layerName = 'dao';
+        let username = 'cali-gian';
+        let layerName = 'gc-consensys';
 
         if (path && path !== '/') {
             // Remove the leading slash and split the path
@@ -60,7 +60,7 @@ window.onload = async function () {
         layerScriptTag.onload = initializeExcalidraw;
         layerScriptTag.onerror = function () {
             console.error('Layer not found, loading default layer.');
-            // Defaulting to 7flash/dao if the requested layer isn't found
+            // Defaulting if the requested layer isn't found
             const defaultLayerScriptUrl = `https://galaxy-browser.vercel.app/cali-gian/gc-consensys`;
             const defaultLayerScriptTag = document.createElement('script');
             defaultLayerScriptTag.src = defaultLayerScriptUrl;
