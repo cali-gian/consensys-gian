@@ -135,7 +135,7 @@ function initializeExcalidraw() {
             React.createElement(
                 "div",
                 {
-                    style: { height: "50vh", width: "50vw" },
+                    style: { height: "100vh", width: "100vw" },
                 },
                 React.createElement(ExcalidrawLib.Excalidraw),
             ),
