@@ -94,10 +94,6 @@ function initializeExcalidraw() {
                         elements,
                         appState: {
                             viewModeEnabled: true,
-                            zoom: {
-                                value: 0.1, // Set initial zoom to 10%
-                                translation: { x: 0, y: 0 }
-                            }
                         },
                     });
 
@@ -114,8 +110,16 @@ function initializeExcalidraw() {
                                 elements: ea.getSceneElements().map(it => {
                                     return { ...it }
                                 })
-                            })
-                        }, 1000)
+                            });
+
+                            // Set zoom level after elements are updated
+                            window.ea.setAppState({
+                                zoom: {
+                                    value: 0.1, // Set initial zoom to 10%
+                                    translation: { x: 0, y: 0 }
+                                }
+                            });
+                        }, 1000);
                     }, 100);
 
                     if (window.files) {
