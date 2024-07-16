@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+
+<head>
+    <title>Galaxy | Browser</title>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galaxy Browser</title>
-    <script src="/webui.js"></script>
-    <script type="module" crossorigin src="/assets/index-11150de3.js"></script>
-    <link rel="stylesheet" href="/assets/index-08362418.css">
-  </head>
-  <body>
-    <div id="root"></div>
-    
-  </body>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script type="text/javascript" src="/galaxy.js"></script>
+    <script type="text/javascript" src="/excalidraw.production.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="app"></div>
+    </div>
+</body>
+
 </html>
