@@ -1,3 +1,7 @@
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import Excalidraw from '@excalidraw/excalidraw';
+
 window.EXCALIDRAW_ASSET_PATH = '/';
 
 window.webui = {
@@ -90,6 +94,12 @@ function initializeExcalidraw() {
                 if (window.ea) {
                     clearInterval(checkEaExists);
 
+                    // Set the initial zoom level to 10%
+                    const zoomButton = document.querySelector('.reset-zoom-button');
+                    if (zoomButton) {
+                        zoomButton.innerHTML = "10%";
+                    }
+
                     window.ea.updateScene({
                         elements,
                         appState: {
@@ -110,14 +120,6 @@ function initializeExcalidraw() {
                                 elements: ea.getSceneElements().map(it => {
                                     return { ...it }
                                 })
-                            });
-
-                            // Set zoom level after elements are updated
-                            window.ea.setAppState({
-                                zoom: {
-                                    value: '10%', // Set initial zoom to 10%
-                                    translation: { x: 0, y: 0 }
-                                }
                             });
                         }, 1000);
                     }, 100);
