@@ -89,7 +89,7 @@ function initializeExcalidraw() {
     }
 
     const App = () => {
-        React.useEffect(() => {
+        useEffect(() => {
             const checkEaExists = setInterval(() => {
                 if (window.ea) {
                     clearInterval(checkEaExists);
