@@ -119,7 +119,7 @@ function initializeExcalidraw() {
                                     translation: { x: 0, y: 0 }
                                 }
                             });
-                        }, 1000);
+                        }, 3000);
                     }, 100);
 
                     if (window.files) {
