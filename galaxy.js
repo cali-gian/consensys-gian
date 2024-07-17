@@ -115,11 +115,11 @@ function initializeExcalidraw() {
                             // Set zoom level after elements are updated
                             window.ea.setAppState({
                                 zoom: {
-                                    value: 0.1, // Set initial zoom to 10%
+                                    value: '10%', // Set initial zoom to 10%
                                     translation: { x: 0, y: 0 }
                                 }
                             });
-                        }, 3000);
+                        }, 1000);
                     }, 100);
 
                     if (window.files) {
