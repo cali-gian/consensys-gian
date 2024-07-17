@@ -104,6 +104,10 @@ function initializeExcalidraw() {
                         elements,
                         appState: {
                             viewModeEnabled: true,
+                            zoom: {
+                                value: 0.1, // Set initial zoom to 10%
+                                translation: { x: 0, y: 0 }
+                            }
                         },
                     });
 
