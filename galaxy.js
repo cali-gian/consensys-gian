@@ -1,7 +1,3 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom/client';
-import Excalidraw from '@excalidraw/excalidraw';
-
 window.EXCALIDRAW_ASSET_PATH = '/';
 
 window.webui = {
@@ -44,12 +40,15 @@ window.onload = async function () {
         let layerName = 'gc-consensys';
 
         if (path && path !== '/') {
+            // Remove the leading slash and split the path
             const pathParts = path.substring(1).split('/');
             if (pathParts.length === 2) {
+                // Expecting a path like "/username/layerName"
                 username = pathParts[0];
                 layerName = pathParts[1];
             } else {
                 throw 'Invalid path format. Expected format: /username/layerName';
+                return;
             }
         }
 
@@ -61,6 +60,7 @@ window.onload = async function () {
         layerScriptTag.onload = initializeExcalidraw;
         layerScriptTag.onerror = function () {
             console.error('Layer not found, loading default layer.');
+            // Defaulting if the requested layer isn't found
             const defaultLayerScriptUrl = `https://galaxy-browser.vercel.app/cali-gian/gc-consensys`;
             const defaultLayerScriptTag = document.createElement('script');
             defaultLayerScriptTag.src = defaultLayerScriptUrl;
@@ -79,26 +79,53 @@ window.onload = async function () {
 };
 
 function initializeExcalidraw() {
+    if (typeof React === "undefined" || typeof ReactDOM === "undefined") {
+        console.error('React and ReactDOM must be loaded before this script.');
+        return;
+    }
+
     const App = () => {
-        useEffect(() => {
+        React.useEffect(() => {
             const checkEaExists = setInterval(() => {
                 if (window.ea) {
                     clearInterval(checkEaExists);
 
-                    // Ensure Excalidraw is ready before setting the zoom
                     window.ea.updateScene({
                         elements,
                         appState: {
                             viewModeEnabled: true,
-                            zoom: {
-                                value: 0.1, // Set initial zoom to 10%
-                                translation: { x: 0, y: 0 }
-                            }
                         },
                     });
 
+                    setTimeout(() => {
+                        window.ea.updateScene({
+                            appState: { selectedElementIds: { ['blackhole']: false } },
+                            elements: elements.map(it => {
+                                return { ...it }
+                            })
+                        })
+
+                        setTimeout(() => {
+                            ea.updateScene({
+                                elements: ea.getSceneElements().map(it => {
+                                    return { ...it }
+                                })
+                            });
+
+                            // Set zoom level after elements are updated
+                            window.ea.setAppState({
+                                zoom: {
+                                    value: 0.1, // Set initial zoom to 10%
+                                    translation: { x: 0, y: 0 }
+                                }
+                            });
+                        }, 1000);
+                    }, 100);
+
                     if (window.files) {
-                        window.ea.addFiles(Object.keys(window.files).map(it => window.files[it]));
+                        ea.addFiles(Object.keys(window.files).map(it => {
+                            return window.files[it]
+                        }))
                     }
 
                     window.ea.scrollToContent();
@@ -110,16 +137,20 @@ function initializeExcalidraw() {
             return () => clearInterval(checkEaExists);
         }, []);
 
-        return (
-            <div style={{ height: "100vh", width: "100vw" }}>
-                <Excalidraw />
-            </div>
+        return React.createElement(
+            React.Fragment,
+            null,
+            React.createElement(
+                "div",
+                {
+                    style: { height: "100vh", width: "100vw" },
+                },
+                React.createElement(ExcalidrawLib.Excalidraw),
+            ),
         );
     };
 
     const excalidrawWrapper = document.getElementById("app");
     const root = ReactDOM.createRoot(excalidrawWrapper);
-    root.render(<App />);
-}
-
-window.onload = initializeExcalidraw;
+    root.render(React.createElement(App));
+};
